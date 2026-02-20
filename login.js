@@ -6,6 +6,9 @@ const GOOGLE_CLIENT_ID = '966183405136-720qmqdk4g5o0vc8ifnrp9anvqedfo68.apps.goo
 
 let currentTab = 'sign-in';
 let pendingGoogleUser = null; // Store Google user data temporarily
+let googleButtonsRendered = false;
+const GOOGLE_INIT_RETRY_MS = 250;
+const GOOGLE_INIT_MAX_RETRIES = 20;
 
 function notify(type, message, duration = 3000) {
     if (window.toast && typeof window.toast[type] === 'function') {
@@ -39,35 +42,61 @@ function switchTab(tab) {
     }
 }
 
-// Initialize on page load
-document.addEventListener('DOMContentLoaded', () => {
-    // Initialize Google Sign-In for Sign In form
-    window.google.accounts.id.initialize({
-        client_id: GOOGLE_CLIENT_ID,
-        callback: handleGoogleSignInResponse
-    });
+function initGoogleButtonsWithRetry(attempt = 0) {
+    if (googleButtonsRendered) return;
 
-    // Render Google Sign-In button for Sign In
-    window.google.accounts.id.renderButton(
-        document.getElementById('sign-in-google'),
-        { 
+    const gsi = window.google && window.google.accounts && window.google.accounts.id;
+    if (!gsi) {
+        if (attempt >= GOOGLE_INIT_MAX_RETRIES) {
+            notify('warning', 'Google sign-in is unavailable right now. Please reload and try again.');
+            console.error('Google GSI client failed to load in time.');
+            return;
+        }
+        setTimeout(() => initGoogleButtonsWithRetry(attempt + 1), GOOGLE_INIT_RETRY_MS);
+        return;
+    }
+
+    const signInTarget = document.getElementById('sign-in-google');
+    const signUpTarget = document.getElementById('sign-up-google');
+    if (!signInTarget || !signUpTarget) {
+        console.error('Google button targets not found in DOM.');
+        return;
+    }
+
+    try {
+        gsi.initialize({
+            client_id: GOOGLE_CLIENT_ID,
+            callback: handleGoogleSignInResponse
+        });
+
+        gsi.renderButton(signInTarget, {
             theme: 'outline',
             size: 'large',
             width: '100%',
             text: 'signin'
-        }
-    );
+        });
 
-    // Render Google Sign-Up button for Sign Up
-    window.google.accounts.id.renderButton(
-        document.getElementById('sign-up-google'),
-        { 
+        gsi.renderButton(signUpTarget, {
             theme: 'outline',
             size: 'large',
             width: '100%',
             text: 'signup'
+        });
+
+        googleButtonsRendered = true;
+    } catch (err) {
+        if (attempt >= GOOGLE_INIT_MAX_RETRIES) {
+            notify('warning', 'Google sign-in could not be initialized. Please reload and try again.');
+            console.error('Google button render failed:', err);
+            return;
         }
-    );
+        setTimeout(() => initGoogleButtonsWithRetry(attempt + 1), GOOGLE_INIT_RETRY_MS);
+    }
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', () => {
+    initGoogleButtonsWithRetry();
 
     // Attach form handlers
     document.getElementById('signInForm').addEventListener('submit', handleEmailSignIn);
