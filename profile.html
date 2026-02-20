@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Transport | My Profile</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <script src="toast.js"></script>
+    <script src="auth.js"></script>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container nav-flex">
+            <h1 class="logo">Elite<span>Transport.</span></h1>
+            <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-controls="primary-nav" aria-expanded="false">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="primary-nav">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="routes.html">Routes & Booking</a></li>
+                <li><a href="profile.html">My Profile</a></li>
+                <li><a href="#contact" class="btn-nav">Contact Support</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <div class="section-header">
+                <h2>My Profile</h2>
+                <p>View your personal information and booking history.</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="section">
+        <div class="container">
+            <!-- Profile Card -->
+            <section class="booking-visuals" style="margin-bottom: 40px;">
+                <h3 style="margin-bottom: 20px;">Personal Information</h3>
+                
+                <div class="profile-layout" style="display: flex; gap: 20px; align-items: start;">
+                    <!-- Profile Picture -->
+                    <div>
+                        <div id="profile-picture" style="width: 100px; height: 100px; border-radius: 50%; background: #e0e0e0; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                            <i class="fa-solid fa-user" style="font-size: 3rem; color: var(--brand-dark);"></i>
+                        </div>
+                    </div>
+
+                    <!-- Profile Info -->
+                    <div style="flex: 1;">
+                        <div style="margin-bottom: 15px;">
+                            <label style="color: var(--text-muted); font-size: 0.9rem;">Full Name</label>
+                            <div id="profile-name" style="font-size: 1.2rem; font-weight: 600; color: var(--text-dark);">-</div>
+                        </div>
+                        
+                        <div style="margin-bottom: 15px;">
+                            <label style="color: var(--text-muted); font-size: 0.9rem;">Email</label>
+                            <div id="profile-email" style="font-size: 1rem; color: var(--text-dark);">-</div>
+                        </div>
+                        
+                        <div style="margin-bottom: 15px;">
+                            <label style="color: var(--text-muted); font-size: 0.9rem;">Phone</label>
+                            <div id="profile-phone" style="font-size: 1rem; color: var(--text-dark);">-</div>
+                        </div>
+
+                        <div style="margin-bottom: 15px;">
+                            <label style="color: var(--text-muted); font-size: 0.9rem;">Account Type</label>
+                            <div id="profile-auth-method" style="font-size: 1rem; color: var(--text-dark);">-</div>
+                        </div>
+
+                        <button id="logout-btn" style="margin-top: 15px; padding: 10px 20px; background-color: #d32f2f; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 600;">
+                            <i class="fa-solid fa-sign-out-alt"></i> Logout
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Booking History -->
+            <section class="booking-visuals">
+                <div class="profile-history-head" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h3>Booking History</h3>
+                    <button id="refresh-bookings-btn" class="btn-primary" style="padding: 8px 16px; font-size: 0.9rem;">
+                        <i class="fa-solid fa-refresh"></i> Refresh
+                    </button>
+                </div>
+
+                <div id="bookings-list">
+                    <div class="faded" style="text-align: center; padding: 40px 20px;">
+                        <i class="fa-solid fa-spinner" style="animation: spin 1s linear infinite; font-size: 2rem; margin-bottom: 10px;"></i>
+                        <p>Loading your bookings...</p>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer>
+        <div class="container footer-flex">
+            <div class="footer-info">
+                <p>&copy; 2026 Elite Transport Services.</p>
+                <p class="faded">Independent Transport Provider. Not officially affiliated with UDS administration.</p>
+            </div>
+            <div class="socials">
+                <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .booking-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+            gap: 15px;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            align-items: center;
+        }
+        .booking-row:last-child {
+            border-bottom: none;
+        }
+        .booking-row-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+            gap: 15px;
+            padding: 15px;
+            background-color: var(--brand-light, #f0f0f0);
+            font-weight: 600;
+            border-bottom: 2px solid var(--brand-dark);
+        }
+    </style>
+
+    <script src="nav.js"></script>
+    <script src="profile.js"></script>
+</body>
+</html>

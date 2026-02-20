@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Transport | Booking</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <script src="toast.js"></script>
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <script src="auth.js"></script>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container nav-flex">
+            <h1 class="logo">Elite<span>Transport.</span></h1>
+            <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-controls="primary-nav" aria-expanded="false">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="primary-nav">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="routes.html">Routes & Booking</a></li>
+                <li><a href="#contact" class="btn-nav">Contact Support</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="section">
+        <div class="container">
+            <div style="margin-bottom:20px;">
+                <a href="routes.html" class="btn-back"><i class="fa-solid fa-arrow-left"></i> Back to Routes</a>
+            </div>
+            <!-- Route Details Card -->
+            <div class="booking-route-card" style="background:var(--bg-light);padding:30px;border-radius:12px;margin-bottom:40px;">
+                <div class="booking-route-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:30px;">
+                    <div>
+                        <h3 style="color:var(--brand-dark);margin-bottom:20px;">Route Details</h3>
+                        <div style="margin-bottom:15px;">
+                            <div style="color:var(--text-muted);font-size:0.9rem;">From</div>
+                            <div style="font-weight:700;font-size:1.2rem;" id="route-from">-</div>
+                        </div>
+                        <div style="margin-bottom:15px;">
+                            <div style="color:var(--text-muted);font-size:0.9rem;">To</div>
+                            <div style="font-weight:700;font-size:1.2rem;" id="route-to">-</div>
+                        </div>
+                        <div style="margin-bottom:15px;">
+                            <div style="color:var(--text-muted);font-size:0.9rem;">Bus</div>
+                            <div style="font-weight:700;" id="bus-name">-</div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color:var(--brand-dark);margin-bottom:20px;">Departure</h3>
+                        <div style="margin-bottom:15px;">
+                            <div style="color:var(--text-muted);font-size:0.9rem;">Date</div>
+                            <div style="font-weight:700;font-size:1.2rem;" id="departure-date">-</div>
+                        </div>
+                        <div style="margin-bottom:15px;">
+                            <div style="color:var(--text-muted);font-size:0.9rem;">Time</div>
+                            <div style="font-weight:700;font-size:1.2rem;" id="departure-time">-</div>
+                        </div>
+                        <div style="margin-bottom:15px;">
+                            <div style="color:var(--text-muted);font-size:0.9rem;">Price per seat</div>
+                            <div style="font-weight:700;color:var(--brand-dark);font-size:1.2rem;" id="seat-price">GHS 0.00</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seat Selection Section -->
+            <div class="booking-main-grid" style="display:grid;grid-template-columns:2fr 1fr;gap:40px;align-items:start;">
+                <!-- Bus Seat Map -->
+                <div>
+                    <h3 style="color:var(--brand-dark);margin-bottom:20px;">Select Your Seat</h3>
+                    <div class="bus-container" style="max-width:100%;background:white;padding:30px;border-radius:12px;">
+                        <div class="bus-front" style="display:flex;justify-content:space-between;margin-bottom:20px;padding-bottom:15px;border-bottom:2px solid #ddd;color:var(--text-muted);font-weight:bold;font-size:0.9rem;">
+                            <span>FRONT</span>
+                            <span>FRONT</span>
+                        </div>
+                        <div id="bus-layout" class="bus-layout" style="display:grid;gap:15px 10px;margin-bottom:20px;">
+                            <!-- Dynamically populated by bookings.js -->
+                        </div>
+                        <div class="seat-legend" style="display:flex;justify-content:space-around;margin-top:20px;font-size:0.85rem;color:var(--text-muted);">
+                            <div><span class="dot available" style="display:inline-block;width:10px;height:10px;border:2px solid #ddd;border-radius:50%;margin-right:5px;"></span>Available</div>
+                            <div><span class="dot locked" style="display:inline-block;width:10px;height:10px;background:#ffc107;border-radius:50%;margin-right:5px;"></span>Locked</div>
+                            <div><span class="dot occupied" style="display:inline-block;width:10px;height:10px;background:#e0e0e0;border-radius:50%;margin-right:5px;"></span>Booked</div>
+                            <div><span class="dot selected" style="display:inline-block;width:10px;height:10px;background:var(--brand-dark);border-radius:50%;margin-right:5px;"></span>Selected</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Booking Form & Summary -->
+                <div class="booking-card" style="background:white;border-radius:12px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.2);">
+                    <div class="form-header" style="background:var(--bg-light);padding:20px 30px;border-bottom:1px solid #ddd;">
+                        <h4>Booking Summary</h4>
+                    </div>
+                    <div class="form-body" style="padding:30px;">
+                        <!-- Selected Seat Display -->
+                        <div style="margin-bottom:20px;padding:15px;background:var(--bg-light);border-radius:8px;">
+                            <div style="font-size:0.85rem;color:var(--text-muted);margin-bottom:5px;">Selected Seat</div>
+                            <div style="font-weight:800;font-size:1.3rem;color:var(--brand-dark);" id="selected-seat-display">None</div>
+                        </div>
+
+                        <!-- Passenger Form -->
+                        <form id="bookingForm">
+                            <div class="input-group">
+                                <label>First Name *</label>
+                                <input type="text" id="first-name" name="first_name" required>
+                            </div>
+                            <div class="input-group">
+                                <label>Last Name *</label>
+                                <input type="text" id="last-name" name="last_name" required>
+                            </div>
+                            <div class="input-group">
+                                <label>Email *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="input-group">
+                                <label>Phone Number (SMS Confirmation) *</label>
+                                <input type="tel" id="phone" name="phone" required>
+                            </div>
+                            <div class="input-group">
+                                <label>Next of Kin Name</label>
+                                <input type="text" id="nok-name" name="next_of_kin_name">
+                            </div>
+                            <div class="input-group">
+                                <label>Next of Kin Phone</label>
+                                <input type="tel" id="nok-phone" name="next_of_kin_phone">
+                            </div>
+
+                            <div class="divider">
+                                <span>payment</span>
+                            </div>
+
+                            <div class="price-summary">
+                                <div>Total</div>
+                                <div class="price-tag" id="total-price">GHS 0.00</div>
+                            </div>
+
+                            <button type="submit" class="btn-primary btn-full" style="width:100%;padding:15px;border:none;cursor:pointer;">Book Now (Pay with Paystack)</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer id="contact">
+        <div class="container footer-flex">
+            <div class="footer-info">
+                <p>&copy; 2026 Elite Transport Services.</p>
+                <p class="faded">Independent Transport Provider. Not officially affiliated with UDS administration.</p>
+            </div>
+            <div class="socials">
+                <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="nav.js"></script>
+    <script src="bookings.js"></script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Transport | Premium Student Logistics</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <script src="toast.js"></script>
+    <script src="auth.js"></script>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container nav-flex">
+            <h1 class="logo">Elite<span>Transport.</span></h1>
+            <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-controls="primary-nav" aria-expanded="false">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="primary-nav">
+                <li><a href="#how-it-works">How it Works</a></li>
+                <li><a href="routes.html">Routes & Booking</a></li>
+                <li><a href="#contact" class="btn-nav">Contact Support</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero section-divider">
+        <div class="container hero-grid">
+            <div class="hero-text glass-panel">
+                <span class="badge">UDS ACADEMIC YEAR 2026</span>
+                <h1>Travel to your field placement in <span class="highlight">comfort.</span></h1>
+                <p>The premium, independent transport choice for students. Direct routes to TTFPP and COBES districts with zero hassle.</p>
+                <div class="trust-badges">
+                    <div class="badge-item"><i class="fa-solid fa-clock"></i> Punctual Departures</div>
+                    <div class="badge-item"><i class="fa-solid fa-suitcase"></i> Luggage Handling</div>
+                </div>
+                <a href="#" id="cta-button" class="btn-primary btn-lg">Secure Your Seat</a>
+            </div>
+            <div class="hero-visual">
+                <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=1000&auto=format&fit=crop" alt="Elite Transport Bus">
+            </div>
+        </div>
+    </header>
+
+    <section class="section features section-divider">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why choose <span class="text-gradient">Elite</span>?</h2>
+                <p>We take the stress out of your academic travel.</p>
+            </div>
+            <div class="grid-3">
+                <div class="feature-card">
+                    <div class="icon-box"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h3>Safety First</h3>
+                    <p>Professional drivers, tracked vehicles, and strict safety protocols for every trip.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon-box"><i class="fa-solid fa-bolt"></i></div>
+                    <h3>Direct Routes</h3>
+                    <p>No unnecessary stops. We move directly from Campus to your designated District Center.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon-box"><i class="fa-solid fa-couch"></i></div>
+                    <h3>Premium Comfort</h3>
+                    <p>Spacious seating, AC options, and organized luggage compartments.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="section bg-light">
+        <div class="container">
+            <div class="section-header">
+                <h2>Streamlined <span class="text-gradient">Booking</span> Process</h2>
+            </div>
+            <div class="steps-grid">
+                <div class="step">
+                    <span class="step-number">01</span>
+                    <h4>Select Route</h4>
+                    <p>Choose your campus departure point and your district destination.</p>
+                </div>
+                <div class="step">
+                    <span class="step-number">02</span>
+                    <h4>Pick a Seat</h4>
+                    <p>Use our visual seat map to choose exactly where you want to sit.</p>
+                </div>
+                <div class="step">
+                    <span class="step-number">03</span>
+                    <h4>Travel</h4>
+                    <p>Receive your e-ticket and meet us at the departure point.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <footer id="contact">
+        <div class="container footer-flex">
+            <div class="footer-info">
+                <p>&copy; 2026 Elite Transport Services.</p>
+                <p class="faded">Independent Transport Provider. Not officially affiliated with UDS administration.</p>
+            </div>
+            <div class="socials">
+                <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="nav.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Set CTA button based on auth status
+        document.addEventListener('DOMContentLoaded', () => {
+            const ctaBtn = document.getElementById('cta-button');
+            const isLoggedIn = isUserLoggedIn();
+            ctaBtn.href = isLoggedIn ? 'routes.html' : 'login.html';
+        });
+    </script>
+</body>
+</html>

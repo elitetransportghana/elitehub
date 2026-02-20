@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Transport | Routes</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <script src="toast.js"></script>
+    <script src="auth.js"></script>
+</head>
+<body class="routes-page">
+
+    <nav class="navbar">
+        <div class="container nav-flex">
+            <h1 class="logo">Elite<span>Transport.</span></h1>
+            <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-controls="primary-nav" aria-expanded="false">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="primary-nav">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="routes.html">Routes & Booking</a></li>
+                <li><a href="#contact" class="btn-nav">Contact Support</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero hero-compact section-divider">
+        <div class="container">
+            <div class="section-header" id="theone">
+                <h2>Available <span class="text-gradient">Routes</span></h2>
+                <p>Choose from TTFPP, COBES or Intercity route groups.</p>
+            </div>
+        </div>
+    </header>
+
+       
+    <main class="section routes-main">
+        <div class="container">
+            <div class="routes-toolbar">
+                <div>
+                    <a href="index.html" class="btn-back"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
+                    <div class="helper-text">Last updated: <span id="last-updated">-</span></div>
+                </div>
+                <div>
+                    <button id="refresh-btn" class="btn-primary">Refresh</button>
+                </div>
+            </div>
+
+            <section id="ttfpp-section">
+                <div class="section-header"><h3>TTFPP Section (Third Trimester Program for UDS Students)</h3></div>
+                <div id="ttfpp-list">Loading...</div>
+            </section>
+
+            <section id="cobes-section" style="margin-top:40px;">
+                <div class="section-header"><h3>COBES Section (Community-Based ... for UDS Students)</h3></div>
+                <div id="cobes-list">Loading...</div>
+            </section>
+
+            <section id="intercity-section" style="margin-top:40px;">
+                <div class="section-header"><h3>Intercity Routes</h3></div>
+                <div id="intercity-list">Loading...</div>
+            </section>
+        </div>
+    </main>
+
+    <footer id="contact">
+        <div class="container footer-flex">
+            <div class="footer-info">
+                <p>&copy; 2026 Elite Transport Services.</p>
+                <p class="faded">Independent Transport Provider. Not officially affiliated with UDS administration.</p>
+            </div>
+            <div class="socials">
+                <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="nav.js"></script>
+    <script src="routes.js"></script>
+</body>
+</html>
